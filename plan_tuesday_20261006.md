@@ -5,6 +5,7 @@ _**things to take into account**_
 
 _**notes**_
 - kartnorge as app
+- might be the case that we only have 2 AWS, then we won't have one in the middle of the valley
 
 ## milestones
 1) setup weatherstations
