@@ -12,7 +12,7 @@ _**things to take into account**_
 
 _tim has the drawings_
 
-## flight plan - ensdalen
+## flight plan - endalen
 - profile every 50m up to 120 m
   - mark down the exact position (compass app) and time for every flight
 - idea: same position and same time every day, and then flights in between
