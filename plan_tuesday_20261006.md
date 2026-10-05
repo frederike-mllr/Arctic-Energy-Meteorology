@@ -3,11 +3,20 @@
 _**things to take into account**_
 - don't be too close to the bio measurement site (this is in the very beginnig)
 
+_**notes**_
+- kartnorge as app
+
+## milestones
+1) setup weatherstations
+2) start with the profile measurements
+3) start with the kite measurements
+
 ## weather station setup
 - weather stations (W1, W2, W3)
 - W1 in the middle of the valley
 - W2, W3 at the slopes at the same altitude
 - fly with the drone at W1 up to 120m and then horizontal transects to the slopes to find the positions for the W2, W3
+  - _alternative:_ use the elevation map and then go out there and communicate with the other side to see whether that works on both sides 
 - mount everything in the middle and then walk out
 
 _tim has the drawings_
@@ -30,3 +39,4 @@ _tim has the drawings_
 - should we have the same upper hightlimit for the analysis?
 - how does it work with the drone data?
 - do we have to consider smth for mounting the AWS
+- do we have to mount the weather stations at the same altitudes
