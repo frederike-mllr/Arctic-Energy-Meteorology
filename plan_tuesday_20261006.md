@@ -8,15 +8,14 @@ _**things to take into account**_
 - W1 in the middle of the valley
 - W2, W3 at the slopes at the same altitude
 - fly with the drone at W1 up to 120m and then horizontal transects to the slopes to find the positions for the W2, W3
-- maybe mount everything in the middle and then walk out
+- mount everything in the middle and then walk out
 
 _tim has the drawings_
 
 ## flight plan - ensdalen
 - profile every 50m up to 120 m
-  - mark down the exact position and time for every flight
+  - mark down the exact position (compass app) and time for every flight
 - idea: same position and same time every day, and then flights in between
-- and then flights in between
 
 ## flight plan - adventdalen
 - same as in ensdalen
