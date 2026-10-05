@@ -41,3 +41,6 @@ _tim has the drawings_
 - how does it work with the drone data?
 - do we have to consider smth for mounting the AWS
 - do we have to mount the weather stations at the same altitudes
+
+<img width="2164" height="3256" alt="IMG_6155" src="https://github.com/user-attachments/assets/b7231566-df95-48d0-b4cd-29e6743e0a6a" />
+<img width="2517" height="3446" alt="IMG_6156" src="https://github.com/user-attachments/assets/4a351705-6ac8-49eb-8393-0e45b0b0f892" />
