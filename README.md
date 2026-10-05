@@ -3,13 +3,12 @@ fieldwork overview
 
 ## reindeers nightmare
 
-- plan: [day 1](01_days/D01.md)
+- [day 1](01_days/D01.md)
 
-## 🔗 Quick links
-[Research question](science/research-question.md)
-[Packing list](logistics/packing-list.md)
+## quick links
+[research question](research_question.md) · [packing list](packing-list.md) · [group members](group.md)
 
-## ❓ Stuck? Ask <name>
+## stuck?
 
 ## secret snack list
 
