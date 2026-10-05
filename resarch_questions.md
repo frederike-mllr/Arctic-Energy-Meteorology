@@ -1,0 +1,7 @@
+- Find out if wind profile is feasible for wind energy
+- Compare with energy consumption with Longyearbyen
+- Compare with models 
+- Compare atmospheric stability
+- Compare with sodar lidar measurements -> do flight at this position
+- Do flight on a ridge in Adventdalen
+- Do flight on plateau at same time one in the valley
