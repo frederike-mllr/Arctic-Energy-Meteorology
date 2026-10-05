@@ -1,7 +1,7 @@
 # D01 (tue, 2026/10/06)
 
 _**things to take into account**_
-- don't be too close to the bio measurement site
+- don't be too close to the bio measurement site (this is in the very beginnig)
 
 ## weather station setup
 - weather stations (W1, W2, W3)
@@ -18,6 +18,7 @@ _tim has the drawings_
 - idea: same position and same time every day, and then flights in between
 
 ## flight plan - adventdalen
+- _note:_ don't be too close to the entrance of the valley
 - same as in ensdalen
   - profile at fixed AWS, then work ourselfs to the mountain
 
@@ -28,4 +29,4 @@ _tim has the drawings_
 ## questions
 - should we have the same upper hightlimit for the analysis?
 - how does it work with the drone data?
-- 
+- do we have to consider smth for mounting the AWS
