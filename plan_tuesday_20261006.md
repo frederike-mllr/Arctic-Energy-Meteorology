@@ -1,9 +1,12 @@
 # D01 (tue, 2026/10/06)
 
+_**things to take into account**_
+- don't be too close to the bio measurement site
+
 ## weather station setup
 - weather stations (W1, W2, W3)
 - W1 in the middle of the valley
-- W2, W3 at the slopes
+- W2, W3 at the slopes at the same altitude
 - fly with the drone at W1 up to 120m and then horizontal transects to the slopes to find the positions for the W2, W3
 - maybe mount everything in the middle and then walk out
 
@@ -24,4 +27,6 @@ _tim has the drawings_
 - set up the kite when the wind speed is high enough
 
 ## questions
-- should we have the same upper limit for the analysis?
+- should we have the same upper hightlimit for the analysis?
+- how does it work with the drone data?
+- 
