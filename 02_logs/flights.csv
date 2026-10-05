@@ -1,0 +1,2 @@
+flight_id,date,start_utc,end_utc,site,location_id,instrument_id,pilot,data_file,notes
+Fxy,yyyy-mm-dd,hh:mm,hh:mm,Endalen/ Adventdalen,Lxy,Ixy,xy,yyyymmdd_Ixy_Lxy_Fxy.nc,
