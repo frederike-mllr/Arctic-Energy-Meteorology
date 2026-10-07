@@ -16,8 +16,9 @@
 ## groups
 
 - AWS (ours and the Aurora station) group
-  - Irina?
-  - 
+  - Irina
+  - Ivan
+  - Tim
 - drone group
   - Bruno
   - Alina
@@ -25,7 +26,7 @@
   - Emma
   - Fredi
   - Issac
-- lidar, sodar (adventdalen)
+- lidar, sodar (Adventdalen)
   - Bruno
 
 ## notes
@@ -59,4 +60,5 @@
 - pictures from the installation and fieldwork
 - description of the instruments and what they measure
 - weather situation during our campagin, also put this in perspective with climate change
+- stability distribution
 
