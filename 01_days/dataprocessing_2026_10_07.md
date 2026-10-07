@@ -11,13 +11,22 @@
 - CARRA data
 - lidar and sodar data from adventdalen
 - iMET sensor
+- AWS at the Aurora station
 
 ## groups
 
-- AWS group
+- AWS (ours and the Aurora station) group
+  - Irina?
+  - 
 - drone group
-- CARRA (larger scale) group
+  - Bruno
+  - Alina
+- CARRA, ERA5 (larger scale) group
+  - Emma
+  - Fredi
+  - Issac
 - lidar, sodar (adventdalen)
+  - Bruno
 
 ## notes
 
@@ -37,6 +46,7 @@
   - we need more details!
   - compare the small scale installations with CARRA for the same period
 - what does the catabatic wind depend on?
+- comaprison with the Aurora station data for the CARRA data
 
 ## what to show
 
