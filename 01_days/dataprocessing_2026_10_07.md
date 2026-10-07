@@ -24,13 +24,28 @@
 - how is the wind across the transect changing
 - where can we get the best output (i.e. enough wind and continuos power)
 - also we want to compare with adventdalen and there we can use the lidar data
+- discussion whether this is a feasible approach 
 
 ## ideas
 
 - compare the 3 sites
 - weibull distribution
-- CARRA data using as a motivation to use smaller scale models
+- CARRA & ERA5 data using as a motivation to use smaller scale models
   - CARRA doesn't have the same resolution etc
   - CARRA min. one year study → potential for wind energy?
   - we need more details!
   - compare the small scale installations with CARRA for the same period
+- what does the catabatic wind depend on?
+
+## what to show
+
+- map with the locations we measured
+- data avaibalbility plot
+- weibull distribution
+  - extrapolation to the whole year?
+- wind rose
+- something with the drone data
+- pictures from the installation and fieldwork
+- description of the instruments and what they measure
+- weather situation during our campagin, also put this in perspective with climate change
+
