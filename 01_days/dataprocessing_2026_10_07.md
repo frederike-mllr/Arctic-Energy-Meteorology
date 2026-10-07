@@ -10,6 +10,7 @@
 
 - CARRA data
 - lidar and sodar data from adventdalen
+- iMET sensor
 
 ## groups
 
