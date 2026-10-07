@@ -4,6 +4,7 @@ fieldwork overview
 ## reindeers nightmare
 
 - [day 1](01_days/D01.md)
+- [data discussion](01_days/dataproccessing_20261007.md)
 
 ## quick links
 [research question](research_question.md) · [packing list](packing-list.md) · [group members](group.md)
