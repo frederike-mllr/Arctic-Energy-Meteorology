@@ -11,6 +11,18 @@ fieldwork overview
 
 ## braindump
 
+### 2026/10/08
+- Ensdalen
+  - drone operations at every station
+  - drone operations in between valley station and elevated station
+  - cheched and fetched the AWS data
+  - saw 9 reindeers
+  - actually had some wind
+  - first river was frozen completely
+  - no icing
+- Adventdalen
+-   simultaneously profile next to the tower
+
 ### 2026/10/07
 - **drone operations**
   - W1-W2 distance: 290m
