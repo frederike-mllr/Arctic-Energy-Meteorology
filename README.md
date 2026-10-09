@@ -24,3 +24,7 @@ Secret snack list (who brings snacks on which field day):
 - Sat: Yvan
 - Sun: Tim
 - Mon: —
+
+## tracking
+
+- Fredi: added the quick plot script of the AWS [AWS quickplots](03_data_analysis/AWS_20261007.ipynb)
