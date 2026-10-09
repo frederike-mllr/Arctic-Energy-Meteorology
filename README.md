@@ -1,43 +1,26 @@
-# Arctic-Energy-Meteorology
-fieldwork overview
+# Arctic Energy Meteorology — AE-342
 
-## reindeers nightmare
+Fieldwork repository for Group B ("Wind Power"), AE-342 Arctic Energy Meteorology (UNIS, Svalbard), autumn 2026. Field campaign around Longyearbyen / Adventdalen / Endalen, 5–12 October 2026.
 
-- [day 1](01_days/D01.md)
-- [data discussion](01_days/dataproccessing_2026_10_07.md)
+## Quick links
 
-## quick links
-[research question](research_question.md) · [packing list](packing-list.md) · [group members](group.md)
+- [Field journal (one entry per day)](01_days/field_journal.md)
+- [Report plan (group, tasks, outline, deadlines)](REPORT_PLAN.md)
+- [Research questions](research_questions.md)
+- [Packing list](02_logistics/packing_list.md)
+- [Data conventions & checklist](03_data_analysis/README.md)
+- [Plots index](04_plots/plots.md)
+- [Field context for AI agents and humans](AGENTS.md)
+- PDFs: `Field introduction.pdf` (campaign overview), `FieldReportInstructions.pdf` (authoritative report instructions)
 
-## braindump
+## Misc
 
-### 2026/10/08
-- Ensdalen
-  - drone operations at every station
-  - drone operations in between valley station and elevated station
-  - cheched and fetched the AWS data
-  - saw 9 reindeers
-  - actually had some wind
-  - first river was frozen completely
-  - no icing
-- Adventdalen
--   simultaneously profile next to the tower
+Secret snack list (who brings snacks on which field day):
 
-### 2026/10/07
-- **drone operations**
-  - W1-W2 distance: 290m
-  - W1-W3 distance: 320m
-  - one profile up/down: 5 min
-  - distance between measurement points: 50 m
-  - we can do at least 2 profiles with one battery set
-  - charging in the aurora station?
-
-## secret snack list
-
-- tue: alina
-- wed: emma
-- thu: fredi
-- fri: irina
-- sat
-- sun
-- mon
+- Tue: Alina
+- Wed: Emma
+- Thu: Fredi
+- Fri: Irina
+- Sat: Yvan
+- Sun: Tim
+- Mon: —

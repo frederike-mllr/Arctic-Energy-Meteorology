@@ -8,7 +8,7 @@
 ## file naming
 `YYYYMMDD_instrument_location_flight.ext`
 example: `20261012_I01_L01_F001.nc`
-IDs come from `02-logs/` (instruments.csv, locations.csv, flights.csv)
+IDs come from `03_data_analysis/data/` (instruments.csv, locations.csv, flights.csv)
 
 ## conventions
 - time: UTC
