@@ -189,24 +189,36 @@ Values marked `[?]` were hard to read — verify against the original notebook p
   - height of T/RH sensor: 186 cm
   - position: 78.18177°N, 15.75970°E
   - elevation E = 1.8 m; altitude = 142.2 m (E = 3 m `[?]`)
-  - pressure: 975.8 hPa (octopus scale) at 15:31
+  - pressure: 975.8 hPa (octopus scale) at 15:31 local (13:31 UTC)
 - Additional (station unclear, possibly W3 / slope): height of wind sensor 154 + 60.5 = 214.5 cm; height of T/RH sensor 169 cm.
 
-#### Drone flight log (times as in notebook, matching UTC data-file names)
+#### Drone flight log
 
-| Flight | Site / path | Start (UTC) | Profile top / end (UTC) | Notes | Data file |
-|---|---|---|---|---|---|
-| #1 (attempt 1) | Endalen | 10:45 | — | Sensor was not on! Came back. | — |
-| #1 (attempt 2) | Endalen | 10:50 | 120 m, 10:54 | Camera looking down | `DJI_MavicPro2_wind_20261008_1050.csv` |
-| #2 | Middle between Rosanne and Bobby McGee | 11:10 | 120 m at 11:13, end 11:14 | | `DJI_MavicPro2_wind_20261008_1109.csv` |
-| #3 | Bobby McGee | 11:23 | 120 m at 11:25, end 11:27 | | `DJI_MavicPro2_wind_20261008_1123.csv` |
-| #4 | Between Bobby McGee and Mrs Robinson | 11:51 | 120 m at 11:54, end 11:55 | | `DJI_MavicPro2_wind_20261008_1151.csv` |
-| #5 | Mrs Robinson | 12:04 | 120 m at 12:06, end 12:08 | | `DJI_MavicPro2_wind_20261008_1204.csv` |
-| #6 | Mrs Robinson → Rosanne | 12:12 | end 12:18 | | `DJI_MavicPro2_wind_20261008_1212.csv` |
-| #7 | Adventdalen, old Aurora station | 13:41 | 20 m at 13:43, end 13:45 | Position 78.20133°N, 15.82968°E | `DJI_MavicPro2_wind_20261008_1341.csv` |
-| #8 | (Adventdalen?) | | | Position 78.18550°N, 15.74992°E; no further details in the notebook | — |
+Notebook times are **local time (Svalbard, UTC+2)** — confirmed by the iMET sonde GPS/UTC timestamps matching the flights (e.g. flight #1b at 10:50 local = 08:50 UTC). Converted to UTC below; flight positions derived from the iMET GPS where available.
 
-Icing-related drone files from the same day (from the data folder, not the notebook): `DJI_MavicPro2_icing_20261008_0302.csv`, `DJI_MavicPro2_icing_20261008_1234.csv`, `DJI_MavicPro2_icing_20261008_1247.csv`, `imet_SN611_202610080916.csv`, `imet_SN611_202610081548.csv`, `imet_SN657_202610081333.csv`.
+| Flight | Site / path | Start (local) | Start (UTC) | Profile top / end (UTC) | Notes | Data file |
+|---|---|---|---|---|---|---|
+| #1 (attempt 1) | Endalen | 10:45 | 08:45 | — | Sensor was not on! Came back. | `drone/20261008_dji_wind_endalen_f01a.csv` |
+| #1 (attempt 2) | Endalen | 10:50 | 08:50 | 120 m, 08:54 | Camera looking down; position ≈ Rosanne (iMET GPS) | `drone/20261008_dji_wind_endalen_f01b.csv` |
+| #2 | Middle between Rosanne and Bobby McGee | 11:10 | 09:10 | 120 m at 09:13, end 09:14 | Position ≈ 78.18304°N, 15.75617°E (iMET GPS) | `drone/20261008_dji_wind_endalen_f02.csv` |
+| #3 | Bobby McGee | 11:23 | 09:23 | 120 m at 09:25, end 09:27 | Position ≈ 78.18431°N, 15.75312°E → Bobby McGee station (iMET GPS) | `drone/20261008_dji_wind_endalen_f03.csv` |
+| #4 | Between Bobby McGee and Mrs Robinson | 11:51 | 09:51 | 120 m at 09:54, end 09:55 | Position ≈ 78.18537°N, 15.74907°E (iMET GPS) | `drone/20261008_dji_wind_endalen_f04.csv` |
+| #5 | Mrs Robinson | 12:04 | 10:04 | 120 m at 10:06, end 10:08 | Position ≈ 78.18655°N, 15.74720°E → Mrs Robinson station (iMET GPS) | `drone/20261008_dji_wind_endalen_f05.csv` |
+| #6 | Mrs Robinson → Rosanne | 12:12 | 10:12 | end 10:18 | | `drone/20261008_dji_wind_endalen_f06.csv` |
+| #7 | Adventdalen, old Aurora station | 13:41 | 11:41 | 20 m at 11:43, end 11:45 | Position 78.20133°N, 15.82968°E | `drone/20261008_dji_wind_adventdalen_f07.csv` |
+| #8 | (Adventdalen?) | | | | Position 78.18550°N, 15.74992°E; no further details in the notebook | — |
+
+Second drone (iMET SN611), from the sonde data (profiles at the old Aurora tower, not in the notebook flight log):
+
+| Window (UTC) | Local | Position | Data file |
+|---|---|---|---|
+| 08:07–08:16 | 10:07–10:16 | ≈ 78.2025°N, 15.8289°E | `drone/20261008_imet_sn611_adventdalen_0807utc.csv` |
+| 08:28–08:53 | 10:28–10:53 | ≈ 78.2027°N, 15.8311°E | `drone/20261008_imet_sn611_adventdalen_0807utc.csv` |
+| 11:37–11:46 | 13:37–13:46 | ≈ 78.2018°N, 15.8329°E | `drone/20261008_imet_sn611_adventdalen_1137utc.csv` — simultaneous profile next to the tower during flight #7 |
+
+Also noted on the Rosanne page: take a photo → of the PT-0 `[?]`, tape a photo `[?]`.
+
+Icing-related drone files from the same day (from the data folder, not the notebook): `drone/20261008_dji_icing_tbd_0102utc.csv`, `drone/20261008_dji_icing_tbd_1034utc.csv`, `drone/20261008_dji_icing_tbd_1047utc.csv`, `drone/20261008_dji_icing_adventdalen_f07.csv`.
 
 ---
 

@@ -1,32 +1,106 @@
-# data
+# data analysis
 
 ## where the data lives
-- raw data: <drive/server + path>
-- backup: <second location>
-- access: ask <name>
+- raw data: this folder (`03_data_analysis/data/`)
+- backup: `<second location>`
+- access: ask `<name>`
 
 ## file naming
-`YYYYMMDD_instrument_location_flight.ext`
-example: `20261012_I01_L01_F001.nc`
-IDs come from `03_data_analysis/data/` (instruments.csv, locations.csv, flights.csv)
+`YYYYMMDD_instrument_location[_flight][_time].ext` — snake_case, times in UTC.
+Examples: `20261008_bobbymcgee_endalen_1min.dat`, `20261008_dji_wind_adventdalen_f07.csv`, `20261008_imet_sn611_endalen_0916utc.csv`.
+
+- Site is `tbd` when not yet confirmed (early files from 2026-10-07).
+- Flight numbers `f01`…`f07` follow the notebook flight log (see `01_days/field_journal.md`, Day 4). `f01a`/`f01b` = attempts 1/2 of flight #1.
+- Raw dumps superseded by full re-downloads are kept in `archive/`.
+- Drone files live in `drone/`; AWS `.dat` files and the log CSVs sit directly in `data/`.
+- IDs referenced by `instruments.csv`, `locations.csv`, `flights.csv` in this folder.
 
 ## conventions
 - time: UTC
 - coordinates: decimal degrees
 - altitude: pressure based
 
+## data inventory (as of 2026-10-09)
+
+### AWS — Campbell Scientific TOA5 `.dat` files, 1-minute records, UTC
+
+| File | Station / logger | Variables | Coverage (UTC) | Records |
+|---|---|---|---|---|
+| `20261008_bobbymcgee_endalen_1min.dat` | Bobby McGee / CR1000 (serial 5913) | T, RH, wind, gust, direction, air pressure, ground T, surface brightness T, IR-up body T, LW-up | 2026-10-02 15:12 → 2026-10-08 09:26 | 2915 |
+| `20261008_mrsrobinson_endalen_1min.dat` | Mrs Robinson / CR200 (serial 17222) | T, RH, wind, gust, direction (no air pressure) | 2026-10-05 14:00 → 2026-10-08 10:18 | 2774 |
+| `20261008_rosanne_endalen_1min.dat` | Rosanne / CR200 (serial 20559) | T, RH, wind, gust, direction, air pressure | 2026-10-05 07:59 → 2026-10-08 08:50 | 1403 |
+
+Notes:
+- TOA5 format: 4 header lines (metadata, column names, units, aggregation type), then quoted records.
+- The 2026-10-07 dumps were complete subsets of the 2026-10-08 re-downloads and were archived (see `archive/`); the three files above are the continuous records to use.
+- Pre-installation records (e.g. Bobby McGee from 2026-10-02, logged indoors at ~23 °C) must be excluded from the analysis — see `SELECT_START` in `analyze_aws_data.py`.
+
+### Drone — DJI Mavic Pro 2 telemetry CSVs
+
+Columns: `Flight time, Altitude, Home Distance, Wind Direction, Wind Speed` (1 s resolution). `drone/` subfolder.
+
+| File | Flight (notebook) | Site |
+|---|---|---|
+| `20261007_dji_wind_tbd_f01tbd.csv` | tbd | tbd |
+| `20261007_dji_wind_tbd_f02tbd.csv` | tbd | tbd |
+| `20261008_dji_wind_endalen_f01a.csv` | #1 attempt 1 (aborted: sensor off) | Endalen |
+| `20261008_dji_wind_endalen_f01b.csv` | #1 attempt 2, 120 m (at Rosanne) | Endalen |
+| `20261008_dji_wind_endalen_f02.csv` | #2, 120 m (Rosanne ↔ Bobby McGee mid) | Endalen |
+| `20261008_dji_wind_endalen_f03.csv` | #3, 120 m (Bobby McGee) | Endalen |
+| `20261008_dji_wind_endalen_f04.csv` | #4, 120 m (Bobby McGee ↔ Mrs Robinson mid) | Endalen |
+| `20261008_dji_wind_endalen_f05.csv` | #5, 120 m (Mrs Robinson) | Endalen |
+| `20261008_dji_wind_endalen_f06.csv` | #6 (Mrs Robinson → Rosanne) | Endalen |
+| `20261008_dji_wind_adventdalen_f07.csv` | #7, 20 m at 11:43 UTC (old Aurora station) | Adventdalen |
+| `20261008_dji_icing_tbd_0102utc.csv` | tbd (night) | tbd |
+| `20261008_dji_icing_tbd_1034utc.csv` | tbd | tbd |
+| `20261008_dji_icing_tbd_1047utc.csv` | tbd | tbd |
+| `20261008_dji_icing_adventdalen_f07.csv` | #7, icing payload | Adventdalen |
+
+Note: DJI export file names carry the **local** (Svalbard, UTC+2) time of the export — the `_time` token in the converted names above is UTC. The notebook flight times are local; UTC conversions are in `flights.csv` and `01_days/field_journal.md`.
+
+### Drone — iMET sonde CSVs
+
+Raw integer output (`XQ` records), 1 s resolution; fields must be scaled (e.g. pressure `+100124` → 1001.24 hPa, temperature `-0168` → −1.68 °C, GPS lon/lat in 1e-7 deg; altitude scaling to be confirmed — negative raw values observed). File names use the actual first-record UTC time.
+
+| File | Sonde | Data range (UTC) | Site |
+|---|---|---|---|
+| `20261007_imet_sn657_adventdalen_1002utc.csv` | SN657 | 2026-10-07 10:02 → 10:13 | Adventdalen (old Aurora station) |
+| `20261008_imet_sn611_adventdalen_0807utc.csv` | SN611 | 2026-10-08 08:07 → 08:53 | Adventdalen (old Aurora tower) |
+| `20261008_imet_sn657_endalen_0849utc.csv` | SN657 | 2026-10-08 08:49 → 11:46 | Endalen ops (flights F01b–F06) + Aurora at the end |
+| `20261008_imet_sn611_adventdalen_1137utc.csv` | SN611 | 2026-10-08 11:37 → 11:46 | Adventdalen (simultaneous with F07) |
+
+Columns: `ID, Pressure, Air Temperature, Humidity, Humidity Temp, Date, Time, Longitude, Latitude, Altitude, Sat Count`.
+
+Station positions derived from the iMET GPS (see `locations.csv`): Bobby McGee ≈ 78.18431°N, 15.75312°E (flight F03); Mrs Robinson ≈ 78.18655°N, 15.74720°E (flight F05); Rosanne 78.18170/15.75963 (iMET) vs 78.18177/15.75970 (notebook).
+
+Map: `04_plots/station_map.png`, generated by `src/plot_station_map.py` (OSM background + stations + iMET tracks).
+
+### Other sources (not in this folder)
+
+- CARRA / ERA5 reanalysis — to be downloaded.
+- Lidar and sodar observations from Adventdalen (2014–2017) — to be obtained.
+- AWS data from the Aurora station.
+
 ## end-of-day checklist
 - [ ] data copied from instruments
 - [ ] copied to backup
-- [ ] each flight has `data_file` filled in flights.csv
-- [ ] problems etc written in the day debrief
+- [ ] each flight has a row in `flights.csv` with `data_file` filled in
+- [ ] problems etc written in the field journal (`01_days/field_journal.md`)
 
 ## known issues
 | date | file / flight | problem | affects | notes |
 |---|---|---|---|---|
-| | | | | |
+| 2026-10-08 | F01a (`..._f01a.csv`) | sensor was not on, flight aborted | no profile | attempt 2 (F01b) succeeded |
+| 2026-10-08 | `..._dji_icing_tbd_1034/1047utc.csv` | flight numbers / site unknown | | fill in `flights.csv` when known |
+| tbd | all `tbd` files | site / flight attribution | | confirm with notebook / pilots |
 
 ## processing log
 | date | who | what was done | output | notes |
 |---|---|---|---|---|
-| | | | | |
+| 2026-10-07 | Fredi | first AWS quick-view plots | `04_plots/AWS_data_2026_10_07_fredi.md` | |
+| 2026-10-09 | Emma | data inventory, unified file naming, AWS dumps merged (Oct 7 subsets archived), plots regenerated | this README, `04_plots/plots.md` | `analyze_aws_data.py` updated for new naming |
+| 2026-10-09 | Emma | site attributions corrected from iMET GPS; notebook times identified as local (UTC+2); iMET/icing files renamed to UTC; station positions estimated from GPS | `locations.csv`, `flights.csv`, journal Day 4 | |
+| 2026-10-09 | Emma | station map (OSM background, AWS + iMET tracks) | `04_plots/station_map.png` | `src/plot_station_map.py` |
+| 2026-10-09 | Emma | Endalen valley zoom map (NPI Basiskart Svalbard topo background, 3 stations, distances) | `04_plots/station_map_endalen.png` | `src/plot_valley_map.py` |
+| 2026-10-09 | Emma | wind rose comparison (3 stations side by side, shared radial scale) | `04_plots/WindRose_comparison_Oct6-7.png` | `src/plot_windrose_comparison.py` |
+| 2026-10-09 | Emma | drone plots: per-flight iMET T/RH profiles (pressure-based altitude), per-flight DJI wind profiles, per-file overviews, cross-flight comparisons | `04_plots/drone/` | `src/analyze_drone_data.py`; iMET humidity scaling confirmed as 1/10 (pressure/temp 1/100) |
