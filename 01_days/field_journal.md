@@ -178,6 +178,36 @@ What to show in the report (candidate figures/content):
 - Adventdalen:
   - simultaneous profiles next to the tower.
 
+### Notebook transcription — station setup & drone flight log (source: notebook photos, 2026-10-08)
+
+Values marked `[?]` were hard to read — verify against the original notebook photos before using them.
+
+#### Station setup notes (Endalen)
+
+- Station #3 Rosanne:
+  - height of wind sensor (windmill): 165 + 54.5 = 209.5 cm
+  - height of T/RH sensor: 186 cm
+  - position: 78.18177°N, 15.75970°E
+  - elevation E = 1.8 m; altitude = 142.2 m (E = 3 m `[?]`)
+  - pressure: 975.8 hPa (octopus scale) at 15:31
+- Additional (station unclear, possibly W3 / slope): height of wind sensor 154 + 60.5 = 214.5 cm; height of T/RH sensor 169 cm.
+
+#### Drone flight log (times as in notebook, matching UTC data-file names)
+
+| Flight | Site / path | Start (UTC) | Profile top / end (UTC) | Notes | Data file |
+|---|---|---|---|---|---|
+| #1 (attempt 1) | Endalen | 10:45 | — | Sensor was not on! Came back. | — |
+| #1 (attempt 2) | Endalen | 10:50 | 120 m, 10:54 | Camera looking down | `DJI_MavicPro2_wind_20261008_1050.csv` |
+| #2 | Middle between Rosanne and Bobby McGee | 11:10 | 120 m at 11:13, end 11:14 | | `DJI_MavicPro2_wind_20261008_1109.csv` |
+| #3 | Bobby McGee | 11:23 | 120 m at 11:25, end 11:27 | | `DJI_MavicPro2_wind_20261008_1123.csv` |
+| #4 | Between Bobby McGee and Mrs Robinson | 11:51 | 120 m at 11:54, end 11:55 | | `DJI_MavicPro2_wind_20261008_1151.csv` |
+| #5 | Mrs Robinson | 12:04 | 120 m at 12:06, end 12:08 | | `DJI_MavicPro2_wind_20261008_1204.csv` |
+| #6 | Mrs Robinson → Rosanne | 12:12 | end 12:18 | | `DJI_MavicPro2_wind_20261008_1212.csv` |
+| #7 | Adventdalen, old Aurora station | 13:41 | 20 m at 13:43, end 13:45 | Position 78.20133°N, 15.82968°E | `DJI_MavicPro2_wind_20261008_1341.csv` |
+| #8 | (Adventdalen?) | | | Position 78.18550°N, 15.74992°E; no further details in the notebook | — |
+
+Icing-related drone files from the same day (from the data folder, not the notebook): `DJI_MavicPro2_icing_20261008_0302.csv`, `DJI_MavicPro2_icing_20261008_1234.csv`, `DJI_MavicPro2_icing_20261008_1247.csv`, `imet_SN611_202610080916.csv`, `imet_SN611_202610081548.csv`, `imet_SN657_202610081333.csv`.
+
 ---
 
 ## Day 5 — Friday, 2026-10-09
