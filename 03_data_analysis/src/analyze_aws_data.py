@@ -17,7 +17,7 @@ When at least two stations are processed in one run, comparison figures
 overlaying the stations are also produced.
 
 Output:
-    Plots are saved in the 2026/plots subfolder.
+    Plots are saved in the 04_plots folder.
 
 Dependencies:
     numpy, matplotlib
@@ -42,7 +42,7 @@ import numpy as np
 # ---------------------------------------------------------------------------
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "data"))
-PLOT_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "2026", "plots"))
+PLOT_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "..", "04_plots"))
 OUTPUT_DPI = 150
 GAP_THRESHOLD_MIN = 30.0  # break time series where the sampling gap exceeds this
 DEFAULT_INTERVAL_MIN = 10  # resampling interval applied to the raw 1-min data
@@ -163,8 +163,17 @@ def resample_to_bins(times, columns, meas_types, interval_min):
 
 
 def station_name(path):
-    """Derive a readable station name from the file name."""
-    name = os.path.basename(path).split("_Res_data")[0]
+    """Derive a readable station name from the file name.
+
+    Supports the current naming convention
+    `YYYYMMDD_instrument_location_[...].dat` (e.g.
+    `20261008_bobbymcgee_endalen_1min.dat`) and the legacy
+    `<Station>_Res_data_...` pattern.
+    """
+    name = os.path.basename(path)
+    if "_" in name and name[:8].isdigit():
+        return name.split("_")[1]  # instrument field
+    name = name.split("_Res_data")[0]
     return name.replace("_", " ").replace(" Series", "").strip() or "Station"
 
 
