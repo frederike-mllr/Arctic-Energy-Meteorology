@@ -311,11 +311,12 @@ def plot_imet_overview(basename, times, cols, segments):
                  fontsize=13, fontweight="bold")
 
     def seg_plot(ax, values, label, color, mask_all):
-        for f, mask in segments:
+        for i, (f, mask) in enumerate(segments):
             v = values[mask]
             t = times[mask]
             ok = np.isfinite(v)
-            ax.plot(t[ok], v[ok], color=color, linewidth=0.8, label=label)
+            ax.plot(t[ok], v[ok], color=color, linewidth=0.8,
+                    label=label if i == 0 else None)
         ax.set_ylabel(label)
         ax.grid(True, alpha=0.3)
         ax.legend(loc="upper right")
