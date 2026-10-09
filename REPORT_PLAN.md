@@ -44,7 +44,7 @@ Living list in `research_questions.md`. Summary:
 
 ## 4. Report outline
 
-Format: paper draft for a scientific journal, following the author guidelines of *Meteorological Applications* (https://rmets.onlinelibrary.wiley.com/journal/14698080).
+Format: paper draft for a scientific journal; overleaf link is in canvas.
 
 | Section | Content | Lead |
 |---|---|---|
