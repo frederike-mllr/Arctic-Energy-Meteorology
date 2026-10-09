@@ -1,2 +1,9 @@
-location_id,site,lat,lon,elevation_m,notes
-L_E_xy/L_A_xy,Endalen/Adventdalen,xy,xy,xy,example only
+location_id,site,name,lat,lon,elevation_m,notes
+L01,Endalen,Bobby McGee station,78.18431,15.75312,,estimated from iMET GPS during flight F03 (2026-10-08)
+L02,Endalen,Mrs Robinson station,78.18655,15.74720,,estimated from iMET GPS during flight F05 (2026-10-08)
+L03,Endalen,Rosanne station,78.18177,15.75970,,notebook GPS 2026-10-08; iMET during F01b gives 78.18170/15.75963
+L04,Endalen,W1 (valley middle),,,,position tbd
+L05,Adventdalen,old Aurora station,78.20133,15.82968,,notebook GPS 2026-10-08; drone flight F07
+L06,Adventdalen,notebook flight #8 position,78.18550,15.74992,,partially legible in notebook
+L07,Endalen,F02 midpoint (Rosanne <-> Bobby McGee),78.18304,15.75617,,from iMET GPS
+L08,Endalen,F04 midpoint (Bobby McGee <-> Mrs Robinson),78.18537,15.74907,,from iMET GPS

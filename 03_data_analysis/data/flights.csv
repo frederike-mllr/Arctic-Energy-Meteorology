@@ -1,2 +1,18 @@
 flight_id,date,start_utc,end_utc,site,location_id,instrument_id,pilot,data_file,notes
-Fxy,yyyy-mm-dd,hh:mm,hh:mm,Endalen/ Adventdalen,Lxy,Ixy,xy,yyyymmdd_Ixy_Lxy_Fxy.nc,
+F01a,2026-10-08,08:45,,Endalen,L03,dji + imet_sn657,,drone/20261008_dji_wind_endalen_f01a.csv,attempt 1: sensor was not on, came back (notebook 10:45 local)
+F01b,2026-10-08,08:50,08:54,Endalen,L03,dji + imet_sn657,,drone/20261008_dji_wind_endalen_f01b.csv,120 m profile at Rosanne, camera looking down (notebook 10:50 local)
+F02,2026-10-08,09:10,09:14,Endalen,L07,dji + imet_sn657,,drone/20261008_dji_wind_endalen_f02.csv,middle between Rosanne and Bobby McGee, 120 m (notebook 11:10 local)
+F03,2026-10-08,09:23,09:27,Endalen,L01,dji + imet_sn657,,drone/20261008_dji_wind_endalen_f03.csv,Bobby McGee, 120 m (notebook 11:23 local)
+F04,2026-10-08,09:51,09:55,Endalen,L08,dji + imet_sn657,,drone/20261008_dji_wind_endalen_f04.csv,between Bobby McGee and Mrs Robinson, 120 m (notebook 11:51 local)
+F05,2026-10-08,10:04,10:08,Endalen,L02,dji + imet_sn657,,drone/20261008_dji_wind_endalen_f05.csv,Mrs Robinson, 120 m (notebook 12:04 local)
+F06,2026-10-08,10:12,10:18,Endalen,,dji + imet_sn657,,drone/20261008_dji_wind_endalen_f06.csv,Mrs Robinson to Rosanne (notebook 12:12 local)
+F07,2026-10-08,11:41,11:45,Adventdalen,L05,dji + imet_sn657,,drone/20261008_dji_wind_adventdalen_f07.csv,old Aurora station, 20 m at 11:43 (notebook 13:41 local)
+F08,2026-10-08,11:37,11:46,Adventdalen,L05,dji + imet_sn611,,drone/20261008_imet_sn611_adventdalen_1137utc.csv,second drone: simultaneous profile next to the tower during F07
+F09a,2026-10-08,08:07,08:16,Adventdalen,L05,dji + imet_sn611,,drone/20261008_imet_sn611_adventdalen_0807utc.csv,profile at the old Aurora tower (morning)
+F09b,2026-10-08,08:28,08:53,Adventdalen,L05,dji + imet_sn611,,drone/20261008_imet_sn611_adventdalen_0807utc.csv,profiles at the old Aurora tower (morning)
+F10,2026-10-07,10:02,10:13,Adventdalen,L05,dji + imet_sn657,,drone/20261007_imet_sn657_adventdalen_1002utc.csv,profile at the old Aurora tower, pilot tbd
+,tbd,2026-10-07,05:40,tbd,,dji,,drone/20261007_dji_wind_tbd_f01tbd.csv,site and flight number tbd (filename time is local)
+,tbd,2026-10-07,12:03,tbd,,dji,,drone/20261007_dji_wind_tbd_f02tbd.csv,site and flight number tbd (filename time is local)
+,tbd,2026-10-08,01:02,tbd,,dji,,drone/20261008_dji_icing_tbd_0102utc.csv,icing test flight, site tbd (filename 0302 local)
+,tbd,2026-10-08,10:34,tbd,,dji,,drone/20261008_dji_icing_tbd_1034utc.csv,icing flight, site tbd (filename 1234 local)
+,tbd,2026-10-08,10:47,tbd,,dji,,drone/20261008_dji_icing_tbd_1047utc.csv,icing flight, site tbd (filename 1247 local)

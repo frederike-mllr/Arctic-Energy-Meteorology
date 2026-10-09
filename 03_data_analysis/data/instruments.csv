@@ -1,2 +1,9 @@
-instrument_id,name,measures,serial_no,responsible,sampling_rate,clock,notes
-I01,...,...,...,...,...,UTC / offset?,
+instrument_id,name,type,measures,serial_no,responsible,sampling_rate,clock,notes
+I01,bobbymcgee,AWS (Campbell CR1000),"air temperature, relative humidity, wind speed, gust speed, wind direction, air pressure, ground temperature, surface brightness temperature, IR-up body temperature, LW-up radiation",5913,,1 min,UTC,full sensor set incl. radiation
+I02,mrsrobinson,AWS (Campbell CR200),"air temperature, relative humidity, wind speed, gust speed, wind direction",17222,,1 min,UTC,no air pressure sensor
+I03,rosanne,AWS (Campbell CR200),"air temperature, relative humidity, wind speed, gust speed, wind direction, air pressure",20559,,1 min,UTC,
+I04,dji_mavicpro2_1,drone (DJI Mavic Pro 2),"flight time, altitude, home distance, wind direction, wind speed (from DJI telemetry)",,,on demand,UTC,payload: iMET sonde SN611 or SN657
+I05,dji_mavicpro2_2,drone (DJI Mavic Pro 2),"flight time, altitude, home distance, wind direction, wind speed (from DJI telemetry)",,,on demand,UTC,payload: iMET sonde SN611 or SN657
+I06,imet_sn611,iMET sonde,"pressure, air temperature, humidity, humidity temp, GPS position, altitude",SN611,,1 s,UTC,raw integers need scaling
+I07,imet_sn657,iMET sonde,"pressure, air temperature, humidity, humidity temp, GPS position, altitude",SN657,,1 s,UTC,raw integers need scaling
+I08,aurora_aws,AWS (Aurora station),,,,,,,,,external data source
