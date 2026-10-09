@@ -224,7 +224,16 @@ Icing-related drone files from the same day (from the data folder, not the noteb
 
 ## Day 5 — Friday, 2026-10-09
 
-*(to be filled in)*
+#### Drone flight log
+
+
+| Flight | Site / path | Start (local) | Start (UTC) | Profile top / end (UTC) | Notes | Data file |
+|---|---|---|---|---|---|---|
+| 1 | Adventdalen | 13.27 | | 13.30 | next to the tower; took nice video in the end | |
+| 2 | Adventdalen | 13.37 | | 13.41 | 92 m from the first site; close to road; again: video | |
+| 3 | Adventdalen | 13.46 | | 13.51 | other side of the road | |
+
+
 
 ## Day 6 — Saturday, 2026-10-10
 
