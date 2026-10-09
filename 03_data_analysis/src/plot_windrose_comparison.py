@@ -11,7 +11,7 @@ Usage:
     python3 plot_windrose_comparison.py [--minutes 10]
 
 Output:
-    04_plots/WindRose_comparison_Oct6-7.png
+    04_plots/WindRose_comparison_Oct6-8.png
 
 Dependencies:
     numpy, matplotlib
@@ -53,7 +53,7 @@ def main():
     angle_edges = np.linspace(0, 2 * np.pi, n_bins + 1)
     centers = angle_edges[:-1] + np.diff(angle_edges) / 2
 
-    max_count = 0.0
+    max_count = 0.0  # shared radial scale, now in % of 10-min bins
     roses = []
     for path in files:
         try:
@@ -72,8 +72,9 @@ def main():
                 lo, hi = speed_edges[i], speed_edges[i + 1]
                 counts, _ = np.histogram(dirs[(speeds >= lo) & (speeds < hi)],
                                          bins=angle_edges)
-                stacked.append(counts)
-                max_count = max(max_count, counts.max())
+                percent = counts / n_valid * 100.0  # radial axis: % of bins
+                stacked.append(percent)
+                max_count = max(max_count, percent.max())
             roses.append((station, stacked, n_valid))
         except Exception as exc:
             print(f"ERROR processing {path}: {exc}", file=sys.__stderr__)
@@ -101,9 +102,11 @@ def main():
                       color=c, label=f"{lo:.1f}-{hi:.1f} m/s")
                for c, (lo, hi) in zip(colors, zip(speed_edges, speed_edges[1:]))]
     fig.legend(handles=handles, loc="lower center", ncol=4, frameon=False)
-    fig.suptitle("Wind roses - Endalen AWS stations, Oct 6-7 2026 "
-                 "(only wind > 0.05 m/s)", fontsize=14, fontweight="bold")
-    out = os.path.join(aws.PLOT_DIR, "WindRose_comparison_Oct6-7.png")
+    fig.suptitle("Wind roses - Endalen AWS stations, Oct 6-8 2026 "
+                 "(radial axis: % of bins, only wind > 0.05 m/s)",
+                 fontsize=14, fontweight="bold")
+    out = os.path.join(aws.station_plot_dir("windrose"),
+                       "WindRose_comparison_Oct6-8.png")
     fig.tight_layout(rect=(0, 0.05, 1, 1))
     fig.savefig(out, dpi=aws.OUTPUT_DPI)
     print(f"Saved plot: {out}")

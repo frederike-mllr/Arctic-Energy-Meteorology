@@ -5,7 +5,8 @@ analyze_aws_data.py
 Analyze Campbell Scientific TOA5 logger files (mini AWS stations) and
 produce relevant plots.
 
-Only data from October 6 and 7, 2026 are considered. The raw 1-minute
+Only data from October 6-8, 2026 are considered (October 8 covers the
+morning only, up to the last logger download). The raw 1-minute
 records are resampled into 10-minute bins (change with --minutes) using
 aggregations that match the sensor measurement type declared in the file.
 
@@ -17,7 +18,9 @@ When at least two stations are processed in one run, comparison figures
 overlaying the stations are also produced.
 
 Output:
-    Plots are saved in the 04_plots folder.
+    Plots are saved in the 04_plots folder, grouped by type:
+    <station>/ (per-station time series), windrose/ (wind roses),
+    comparison figures at the top level, superseded plots in archive/.
 
 Dependencies:
     numpy, matplotlib
@@ -47,7 +50,9 @@ OUTPUT_DPI = 150
 GAP_THRESHOLD_MIN = 30.0  # break time series where the sampling gap exceeds this
 DEFAULT_INTERVAL_MIN = 10  # resampling interval applied to the raw 1-min data
 SELECT_START = dt.datetime(2026, 10, 6, 0, 0, 0)  # October 6, 00:00
-SELECT_END = dt.datetime(2026, 10, 8, 0, 0, 0)    # October 7, 24:00 (exclusive)
+SELECT_END = dt.datetime(2026, 10, 9, 0, 0, 0)    # October 8, 24:00 (exclusive);
+                                                  # Oct 8 coverage ends with the
+                                                  # morning download (08:50-10:18 UTC)
 
 SENSOR_GROUPS = {
     "overview": [
@@ -91,7 +96,7 @@ def parse_toa5(path):
             ts = dt.datetime.strptime(row[0], "%Y-%m-%d %H:%M:%S")
         except ValueError:
             continue
-        # Keep only October 6 and 7, 2026
+        # Keep only October 6-8, 2026
         if not (SELECT_START <= ts < SELECT_END):
             continue
         if hasattr(ts, "tzinfo") is False and ts is None:
@@ -180,6 +185,18 @@ def station_name(path):
 # ---------------------------------------------------------------------------
 # Plotting helpers
 # ---------------------------------------------------------------------------
+def station_plot_dir(station, subfolder=None):
+    """Output folder for one station's plots, created on demand.
+
+    Layout: 04_plots/<station>/ for time-series plots and
+    04_plots/windrose/ for wind roses.
+    """
+    target = station if subfolder is None else subfolder
+    directory = os.path.join(PLOT_DIR, target)
+    os.makedirs(directory, exist_ok=True)
+    return directory
+
+
 def split_segments(times, values):
     """Split a time series into segments where gaps exceed the threshold."""
     seconds = times.astype("datetime64[s]").astype(np.int64)
@@ -193,10 +210,15 @@ def split_segments(times, values):
 
 def plot_timeseries(ax, times, values, label, color, linewidth=1.0,
                     marker=None, linestyle="-"):
-    """Plot a time series, breaking lines at long sampling gaps."""
-    for t, v in split_segments(times, values):
+    """Plot a time series, breaking lines at long sampling gaps.
+
+    Only the first segment carries the legend label, otherwise one legend
+    entry is added per segment.
+    """
+    for i, (t, v) in enumerate(split_segments(times, values)):
         ax.plot(t, v, color=color, linewidth=linewidth, linestyle=linestyle,
-                marker=marker, markersize=2, label=label)
+                marker=marker, markersize=2,
+                label=label if i == 0 else None)
     ax.set_xlabel("Time (UTC)")
     ax.grid(True, alpha=0.3)
 
@@ -218,7 +240,7 @@ def format_stats_text(columns):
 def make_overview_plot(station, times, columns, interval_min):
     """3x2 overview: temperature, RH, wind, direction, battery, statistics."""
     fig, axes = plt.subplots(3, 2, figsize=(13, 10), sharex=True)
-    fig.suptitle(f"{station} - AWS overview, Oct 6-7 2026 "
+    fig.suptitle(f"{station} - AWS overview, Oct 6-8 2026 "
                  f"({interval_min}-min data)", fontsize=13, fontweight="bold")
 
     # Row 1: air temperature and relative humidity
@@ -267,7 +289,8 @@ def make_overview_plot(station, times, columns, interval_min):
         ax.xaxis.set_major_locator(mdates.HourLocator(interval=12))
     fig.autofmt_xdate(rotation=30)
     fig.tight_layout(rect=(0, 0, 1, 0.97))
-    out = os.path.join(PLOT_DIR, f"{station}_Overview_Oct6-7.png")
+    out = os.path.join(station_plot_dir(station),
+                       f"{station}_Overview_Oct6-8.png")
     fig.savefig(out, dpi=OUTPUT_DPI)
     plt.close(fig)
     return out
@@ -286,19 +309,21 @@ def make_wind_rose(station, times, columns, interval_min):
     speed_edges = [0, 0.1, 0.2, 0.4, 1.0]
     n_bins = 16
     angle_edges = np.linspace(0, 2 * np.pi, n_bins + 1)
+    n_valid = int(valid.sum())
 
     fig = plt.figure(figsize=(8, 8))
     ax = fig.add_subplot(111, projection="polar")
     colors = ["#c6dbef", "#6baed6", "#3182bd", "#08519c"]
-    max_count = 0
+    max_percent = 0.0
 
     for i in range(len(speed_edges) - 1):
         lo, hi = speed_edges[i], speed_edges[i + 1]
         mask = (speeds >= lo) & (speeds < hi)
         counts, _ = np.histogram(dirs[mask], bins=angle_edges)
-        max_count = max(max_count, counts.max())
+        percent = counts / n_valid * 100.0
+        max_percent = max(max_percent, percent.max())
         centers = angle_edges[:-1] + np.diff(angle_edges) / 2
-        ax.bar(centers, counts, width=np.diff(angle_edges),
+        ax.bar(centers, percent, width=np.diff(angle_edges),
                bottom=0, color=colors[i], alpha=0.85,
                edgecolor="white", linewidth=0.5,
                label=f"{lo:.1f}-{hi:.1f} m/s")
@@ -306,11 +331,13 @@ def make_wind_rose(station, times, columns, interval_min):
     ax.set_theta_zero_location("N")
     ax.set_theta_direction(-1)
     ax.set_rlabel_position(30)
-    ax.set_title(f"{station} - Wind rose, Oct 6-7 2026 "
-                 f"({interval_min}-min data, n={valid.sum()})",
+    ax.set_title(f"{station} - Wind rose, Oct 6-8 2026 "
+                 f"({interval_min}-min bins, n={n_valid}; "
+                 f"radial axis: % of bins)",
                  fontsize=13, fontweight="bold")
     ax.legend(loc="lower left", bbox_to_anchor=(-0.15, -0.12))
-    out = os.path.join(PLOT_DIR, f"{station}_WindRose_Oct6-7.png")
+    out = os.path.join(station_plot_dir(station, subfolder="windrose"),
+                       f"{station}_WindRose_Oct6-8.png")
     fig.savefig(out, dpi=OUTPUT_DPI, bbox_inches="tight")
     plt.close(fig)
     return out
@@ -325,7 +352,7 @@ def make_extra_plot(station, times, columns, interval_min):
 
     n = len(available)
     fig, axes = plt.subplots(n, 1, figsize=(13, 3.2 * n), sharex=True, squeeze=False)
-    fig.suptitle(f"{station} - Additional sensors, Oct 6-7 2026 "
+    fig.suptitle(f"{station} - Additional sensors, Oct 6-8 2026 "
                  f"({interval_min}-min data)", fontsize=13, fontweight="bold")
     colors = plt.get_cmap("Dark2").colors
     for ax, (name, label, unit), color in zip(axes[:, 0], available,
@@ -337,7 +364,8 @@ def make_extra_plot(station, times, columns, interval_min):
         ax.xaxis.set_major_locator(mdates.HourLocator(interval=12))
     fig.autofmt_xdate(rotation=30)
     fig.tight_layout(rect=(0, 0, 1, 0.97))
-    out = os.path.join(PLOT_DIR, f"{station}_ExtraSensors_Oct6-7.png")
+    out = os.path.join(station_plot_dir(station),
+                       f"{station}_ExtraSensors_Oct6-8.png")
     fig.savefig(out, dpi=OUTPUT_DPI)
     plt.close(fig)
     return out
@@ -356,7 +384,7 @@ def make_comparison_plots(stations, interval_min):
         return []
     colors = plt.get_cmap("tab10").colors
     fig, axes = plt.subplots(2, 2, figsize=(13, 9), sharex=True)
-    fig.suptitle(f"Station comparison, Oct 6-7 2026 ({interval_min}-min data)",
+    fig.suptitle(f"Station comparison, Oct 6-8 2026 ({interval_min}-min data)",
                  fontsize=13, fontweight="bold")
 
     for i, (name, times, columns) in enumerate(stations):
@@ -390,7 +418,7 @@ def make_comparison_plots(stations, interval_min):
         ax.xaxis.set_major_locator(mdates.HourLocator(interval=12))
     fig.autofmt_xdate(rotation=30)
     fig.tight_layout(rect=(0, 0, 1, 0.97))
-    out = os.path.join(PLOT_DIR, "Comparison_Overview_Oct6-7.png")
+    out = os.path.join(PLOT_DIR, "Comparison_Overview_Oct6-8.png")
     fig.savefig(out, dpi=OUTPUT_DPI)
     plt.close(fig)
     return [out]
@@ -408,14 +436,14 @@ def make_pressure_comparison(stations, interval_min):
         plot_timeseries(ax, times, columns["air_pressure"], name,
                         colors[i % len(colors)])
     ax.set_ylabel("hPa")
-    ax.set_title(f"Air pressure comparison, Oct 6-7 2026 "
+    ax.set_title(f"Air pressure comparison, Oct 6-8 2026 "
                  f"({interval_min}-min data)", fontsize=13, fontweight="bold")
     ax.legend(loc="upper right")
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%m-%d %H:%M"))
     ax.xaxis.set_major_locator(mdates.HourLocator(interval=12))
     fig.autofmt_xdate(rotation=30)
     fig.tight_layout()
-    out = os.path.join(PLOT_DIR, "Comparison_AirPressure_Oct6-7.png")
+    out = os.path.join(PLOT_DIR, "Comparison_AirPressure_Oct6-8.png")
     fig.savefig(out, dpi=OUTPUT_DPI)
     plt.close(fig)
     return [out]
@@ -430,7 +458,7 @@ def print_summary(path, station, times, columns, units, interval_min,
     print(f"Station : {station}")
     print(f"File    : {path}")
     if len(times) == 0:
-        print("No data within October 6-7 2026.")
+        print("No data within October 6-8 2026.")
         return
     n_bins_max = int((SELECT_END - SELECT_START).total_seconds()
                      / (interval_min * 60))
@@ -489,7 +517,7 @@ def process_file(path, interval_min):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Analyze CR200 mini-AWS logger files (TOA5), Oct 6-7 2026, "
+        description="Analyze CR200 mini-AWS logger files (TOA5), Oct 6-8 2026, "
                     "resampled to N-minute bins (default 10).")
     parser.add_argument("--minutes", type=int, default=DEFAULT_INTERVAL_MIN,
                         help="resampling interval in minutes (default: 10)")
